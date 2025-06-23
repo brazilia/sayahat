@@ -1,0 +1,189 @@
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  color: #333;
+}
+
+main {
+  padding: 2rem;
+}
+
+.tours-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tours-filter {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tours-filter input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 80%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.tours {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-left: 80px;
+}
+
+.tour-card {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  transition: display 0.3s ease;
+}
+
+.tour-card.hidden {
+  display: none;
+}
+
+.tour-date {
+  background-color: #ffcc00;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Raleway", sans-serif;
+}
+
+.tour-day {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.tour-date-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.tour-image {
+  width: 200px;
+  height: auto;
+}
+
+.tour-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tour-info h2 {
+  font-family: "Raleway", sans-serif;
+  margin-top: 0;
+}
+
+.tour-info p {
+  font-family: "Lato", sans-serif;
+}
+
+.tour-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.btn {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #004d99;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  background-color: #003366;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 45px;
+  padding-right: 70px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.modal-content p {
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+.modal-content input {
+  width: 100%;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#detailsForm label {
+  display: block;
+  margin-top: 10px;
+}
+
+#detailsForm input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#detailsForm button {
+  padding: 10px 20px;
+  margin-top: 30px;
+  background-color: rgb(199, 150, 98);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#detailsForm button:hover {
+  background-color: rgb(179, 129, 76);
+}

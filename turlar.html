@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Tours | Sayahat Travel</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Kit -->
+    <script
+      src="https://kit.fontawesome.com/f4e280c505.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      /* --- CSS Variables for Easy Themeing --- */
+      :root {
+        --primary-color: #2c3e50; /* Dark Slate Blue */
+        --secondary-color: #c79662; /* Rich Tan/Brown */
+        --accent-color: #d35400; /* Burnt Orange for CTAs */
+        --light-bg: #f8f9fa;
+        --dark-bg: #34495e;
+        --text-color: #555;
+        --text-light: #ecf0f1;
+        --border-color: #e1e1e1;
+        --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+      }
+
+      /* --- General & Reset Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding-left: 80px; /* Account for fixed sidebar */
+      }
+
+      h1, h2, h3 {
+        font-family: "Raleway", sans-serif;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      a { text-decoration: none; color: var(--secondary-color); transition: color 0.3s ease; }
+      a:hover { color: var(--accent-color); }
+      img { max-width: 100%; display: block; }
+      .hidden { display: none !important; }
+
+      /* --- Sidebar --- */
+      .sidebar {
+        position: fixed; left: 0; top: 0; width: 80px; height: 100vh;
+        background-color: var(--primary-color);
+        display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+        padding: 20px 0; z-index: 1000;
+      }
+      .sidebar #menuButton { background: none; border: none; color: var(--text-light); font-size: 24px; cursor: pointer; }
+      .sidebar .menu { display: flex; flex-direction: column; align-items: center; gap: 15px; position: absolute; top: 80px; background: var(--primary-color); width: 100%; padding: 10px 0; }
+      .sidebar .menu a { color: var(--text-light); font-weight: bold; }
+      .sidebar .media { display: flex; flex-direction: column; gap: 20px; }
+      .sidebar .media a i { color: #ababab; font-size: 20px; }
+      .sidebar .copyright { text-align: center; color: #ababab; font-size: 14px; }
+      .sidebar .copyright .fa-phoenix-squadron { color: var(--secondary-color); margin-top: 5px; }
+
+      /* --- Header --- */
+      header {
+        position: sticky; top: 0; width: 100%;
+        background-color: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        z-index: 999; padding: 15px 20px;
+      }
+      .head-menu { display: flex; justify-content: center; align-items: center; gap: 40px; }
+      .head-menu a {
+        color: var(--primary-color); font-family: "Raleway", sans-serif;
+        font-weight: 700; font-size: 16px; padding-bottom: 5px; position: relative;
+      }
+      .head-menu a::after {
+        content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 3px;
+        background-color: var(--secondary-color); transition: width 0.3s ease;
+      }
+      .head-menu a:hover::after { width: 100%; }
+
+      /* --- Main Content Container --- */
+      main { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+      .tours-intro { text-align: center; margin-bottom: 50px; }
+      .tours-intro h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+      .tours-intro p { font-size: 1.1rem; color: #777; max-width: 600px; margin: 0 auto; }
+      .tours-filter { margin-bottom: 50px; display: flex; justify-content: center; }
+      #tourSearch {
+        width: 100%; max-width: 500px; padding: 15px 20px;
+        border: 1px solid var(--border-color); border-radius: 50px;
+        font-size: 1rem; outline: none; transition: all 0.3s ease;
+      }
+      #tourSearch:focus { border-color: var(--secondary-color); box-shadow: 0 0 0 4px rgba(199, 150, 98, 0.2); }
+
+      /* --- Single Column Tour List --- */
+      .tours { display: flex; flex-direction: column; gap: 40px; }
+      .tour-card {
+        background: #fff; border-radius: var(--border-radius); box-shadow: var(--shadow);
+        overflow: hidden; display: flex; position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%; max-width: 900px; margin: 0 auto;
+      }
+      .tour-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12); }
+      .tour-image-container { flex-shrink: 0; width: 320px; position: relative; }
+      .tour-image { width: 100%; height: 100%; object-fit: cover; }
+      .tour-date {
+        position: absolute; top: 20px; left: 20px; background-color: rgba(44, 62, 80, 0.85);
+        backdrop-filter: blur(5px); color: #fff; padding: 8px 12px; border-radius: var(--border-radius);
+        text-align: center; font-family: "Raleway", sans-serif; font-weight: 700; line-height: 1.2;
+      }
+      .tour-date .tour-day { font-size: 0.8rem; letter-spacing: 1px; }
+      .tour-date .tour-date-number { font-size: 1.5rem; display: block; }
+      
+      .tour-info { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
+      .tour-info h2 { margin-bottom: 10px; font-size: 1.6rem; }
+      .tour-info .tour-meta { font-size: 0.95rem; color: #777; margin-bottom: 20px; display: block; }
+      .tour-info .tour-description { margin-bottom: 20px; flex-grow: 1; }
+      .tour-details-footer {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border-color);
+      }
+      .tour-details-footer .tour-time { color: var(--primary-color); font-weight: bold; font-size: 1rem; }
+      .btn.details-btn {
+        background-color: var(--secondary-color); color: #fff;
+        padding: 12px 25px; border-radius: 50px; font-weight: bold;
+        transition: background-color 0.3s ease; text-transform: uppercase;
+        font-size: 0.85rem; letter-spacing: 0.5px;
+      }
+      .btn.details-btn:hover { background-color: var(--accent-color); color: #fff; }
+
+      /* --- Modal --- */
+      .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.6); animation: fadeIn 0.3s; }
+      .modal-content { background-color: #fefefe; margin: 15% auto; padding: 30px; width: 90%; max-width: 500px; border-radius: var(--border-radius); box-shadow: var(--shadow); position: relative; }
+      .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+      #detailsForm label { display: block; margin-bottom: 8px; font-weight: bold; color: var(--primary-color); }
+      #detailsForm input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; }
+      #detailsForm button { width: 100%; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: var(--border-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+
+      /* --- Footer --- */
+      footer { background-color: var(--dark-bg); color: var(--text-light); padding: 50px 40px; margin-left: -80px; }
+      .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 30px; }
+      .footer-section h3 { color: #fff; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+      .footer-section h3::after { content: ""; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--secondary-color); }
+      .footer-section p, .footer-section ul { color: #ccc; font-size: 0.95rem; }
+      .footer-section ul { list-style: none; }
+      .footer-section ul li { margin-bottom: 10px; }
+      .footer-section a { color: #ccc; }
+      .footer-section i { margin-right: 10px; }
+      .social-links a { color: #ccc; margin-right: 15px; font-size: 1.5rem; }
+      .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #4a6278; color: #ccc; }
+      
+
+      /* ==================================== */
+      /* --- MOBILE RESPONSIVE ADJUSTMENTS --- */
+      /* ==================================== */
+
+      /* For tablets and smaller devices */
+      @media (max-width: 900px) {
+        .tour-card {
+            flex-direction: column; /* Key change: stack card content vertically */
+        }
+        .tour-image-container {
+            width: 100%; /* Image container now takes full width */
+            height: 250px; /* Give a consistent height for a clean look */
+        }
+      }
+
+      /* For mobile phones */
+      @media (max-width: 768px) {
+        body {
+          padding-left: 0; /* Remove padding for sidebar */
+        }
+        .sidebar {
+          display: none; /* Hide the sidebar completely on mobile */
+        }
+        main {
+          padding: 20px 15px; /* Reduce main content padding */
+        }
+        footer {
+          margin-left: 0; /* Remove footer margin */
+          padding: 40px 20px;
+        }
+
+        .head-menu {
+          gap: 15px; /* Reduce gap between nav links */
+          flex-wrap: wrap; /* Allow nav links to wrap onto a new line if needed */
+          justify-content: center;
+        }
+        .head-menu a {
+          font-size: 14px; /* Slightly smaller font for nav */
+        }
+
+        .tours-intro h1 {
+          font-size: 2.2rem; /* Smaller main headline */
+        }
+        .tours-intro p {
+          font-size: 1rem;
+        }
+        .tours-filter {
+            margin-bottom: 40px;
+        }
+        #tourSearch {
+            padding: 12px 18px;
+        }
+
+        .tour-info {
+          padding: 20px; /* Reduce padding inside tour cards */
+        }
+        .tour-info h2 {
+          font-size: 1.4rem; /* Smaller tour titles */
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div>
+        <button id="menuButton">☰</button>
+        
+      </div>
+      <div class="media">
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="copyright">
+        <p>2024</p>
+        <i class="fa-brands fa-phoenix-squadron"></i>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <nav class="head-menu">
+        <a href="main.html">Басты бет</a>
+        <a href="#about">Біз туралы</a>
+        <a href="#contact">Байланыс</a>
+        <a href="turlar.html" rel="nofollow" target="_blank">Турлар</a>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="tours-intro">
+        <h1>Қазақстан бойынша турлар</h1>
+        <p>Әдемі пейзаждардан тарихи ескерткіштерге дейін біз ұсынатын ең жақсы турларды табыңыз.</p>
+      </section>
+
+      <section class="tours-filter">
+        <input type="text" id="tourSearch" placeholder="Тур іздеу..." />
+      </section>
+
+      <section class="tours" id="toursList">
+
+        <div class="tour-card">
+          <div class="tour-image-container">
+            <img src="https://images.unsplash.com/photo-1694411138725-101c79f0f9ee?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aXNzeWt8ZW58MHx8MHx8fDA%3D" alt="Issyk Lake" class="tour-image"/>
+            <div class="tour-date">
+              <span class="tour-day">MAY</span><span class="tour-date-number">26</span>
+            </div>
+          </div>
+          <div class="tour-info">
+            <h2>Есік көліне тур</h2>
+            <p class="tour-description">Табиғат аясында демалып, Іле Алатауының інжу-маржаны саналатын Есік көлінің сұлулығына тамсаныңыз.</p>
+            <span class="tour-meta">5-15 туристтен тұратын шағын топ - адам басына $50</span>
+            <div class="tour-details-footer">
+              <span class="tour-time"><i class="fa-regular fa-clock"></i> 9:00 - 13:30</span>
+              <a href="#" class="btn details-btn">Жазылу</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tour-card">
+          <div class="tour-image-container">
+            <img src="https://images.unsplash.com/photo-1704315348923-f2854e79d4b2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2h5bWJ1bGFrfGVufDB8fDB8fHww" alt="Shymbulak Ski Resort" class="tour-image"/>
+            <div class="tour-date">
+              <span class="tour-day">MAY</span><span class="tour-date-number">28</span>
+            </div>
+          </div>
+          <div class="tour-info">
+            <h2>Шымбұлақ курортына тур</h2>
+            <p class="tour-description">Әлемге әйгілі Шымбұлақ тау-шаңғы курортында белсенді демалыс өткізіп, таза тау ауасымен тыныстаңыз.</p>
+            <span class="tour-meta">Жеке тур - адам басына $70</span>
+            <div class="tour-details-footer">
+              <span class="tour-time"><i class="fa-regular fa-clock"></i> 9:30 - 15:30</span>
+              <a href="#" class="btn details-btn">Жазылу</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tour-card">
+          <div class="tour-image-container">
+            <img src="https://images.unsplash.com/photo-1460302293840-dc1a23a7b226?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YWtzdSUyMGNhbnlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Aksu Canyon" class="tour-image"/>
+            <div class="tour-date">
+              <span class="tour-day">MAY</span><span class="tour-date-number">29</span>
+            </div>
+          </div>
+          <div class="tour-info">
+            <h2>Ақсу шатқалына тур</h2>
+            <p class="tour-description">Оңтүстік Қазақстанның ең терең және көрікті шатқалдарының бірі – Ақсу шатқалына ұмытылмас саяхат.</p>
+            <span class="tour-meta">Жеке тур - адам басына $220</span>
+            <div class="tour-details-footer">
+              <span class="tour-time"><i class="fa-regular fa-clock"></i> 8:00 - 18:00</span>
+              <a href="#" class="btn details-btn">Жазылу</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tour-card">
+            <div class="tour-image-container">
+              <img src="suretter/tstan.jpg" alt="Turkistan City" class="tour-image" />
+              <div class="tour-date">
+                <span class="tour-day">MAY</span><span class="tour-date-number">30</span>
+              </div>
+            </div>
+            <div class="tour-info">
+              <h2>Түркістан қаласына тур</h2>
+              <p class="tour-description">Ұлы Жібек жолының бойындағы рухани астанамыз, тарихы терең Түркістан қаласына саяхат жасаңыз.</p>
+              <span class="tour-meta">1-4 туристтен тұратын шағын топ - адам басына $132</span>
+              <div class="tour-details-footer">
+                <span class="tour-time"><i class="fa-regular fa-clock"></i> 7:30 - 18:30</span>
+                <a href="#" class="btn details-btn">Жазылу</a>
+              </div>
+            </div>
+          </div>
+
+      </section>
+    </main>
+
+    <!-- CONTACT MODAL -->
+    <div id="detailsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">×</span>
+        <h2>Байланыс ақпаратыңызды қалдырыңыз</h2>
+        <p>Тур жайлы қосымша ақпаратпен сізбен бөлісеміз.</p>
+        <form id="detailsForm">
+          <label for="name">Атыңыз*</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="phone">Телефон*</label>
+          <input type="tel" id="phone" name="phone" required />
+
+          <button type="submit">Жіберу</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section about" id="about">
+          <h3>Біз туралы</h3>
+          <p>
+            Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.
+            Жаңа жерлерді зерттеп, әртүрлі мәдениеттерді сезіну үшін бізбен
+            байланысқа щығыңыз.
+          </p>
+        </div>
+        <div class="footer-section links">
+          <h3>Сайтта навигация</h3>
+          <ul>
+            <li><a href="main.html">Басты бет</a></li>
+            <li><a href="#about">Біз туралы</a></li>
+            <li><a href="#contact">Байланыс</a></li>
+            <li><a href="turlar.html">Турлар тізімі</a></li>
+          </ul>
+        </div>
+        <div class="footer-section contact" id="contact">
+          <h3>Байланыс</h3>
+          <p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p>
+          <p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p>
+        </div>
+        <div class="footer-section social">
+          <h3>Әлеуметтік желілер</h3>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Sayahat Travel. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Sidebar Menu Toggle
+      document
+        .getElementById("menuButton")
+        .addEventListener("click", function () {
+          var menu = document.getElementById("menu");
+          menu.classList.toggle("hidden");
+        });
+
+      // Tour Search Filter
+      document
+        .getElementById("tourSearch")
+        .addEventListener("input", function () {
+          const query = this.value.toLowerCase().trim();
+          const tourCards = document.querySelectorAll(".tour-card");
+
+          tourCards.forEach((card) => {
+            const tourName = card.querySelector("h2").textContent.toLowerCase();
+            const tourDesc = card.querySelector(".tour-description").textContent.toLowerCase();
+
+            // Check if either name or description includes the query
+            if (tourName.includes(query) || tourDesc.includes(query)) {
+              // On desktop it's 'flex', on mobile it might be 'block' after stacking
+              // so we reset style instead of setting a specific value
+              card.style.display = ''; 
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+
+      // Modal Logic
+      const modal = document.getElementById("detailsModal");
+      const detailsButtons = document.querySelectorAll(".details-btn");
+      const closeBtn = document.getElementsByClassName("close-btn")[0];
+      const openModal = () => { modal.style.display = "block"; };
+      const closeModal = () => { modal.style.display = "none"; };
+      detailsButtons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault(); openModal();
+        });
+      });
+      closeBtn.addEventListener("click", closeModal);
+      window.addEventListener("click", (event) => { if (event.target == modal) { closeModal(); } });
+      window.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); } });
+      document
+        .getElementById("detailsForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Рахмет! Біз сізбен жақында байланысамыз.");
+          closeModal();
+          this.reset();
+        });
+    </script>
+  </body>
+</html>
