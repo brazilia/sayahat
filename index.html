@@ -148,6 +148,7 @@
       /* --- Testimonials Section --- */
       .testimonials-section {
         background-color: #F0F4F8; color: #2c3e50;
+        margin-bottom: 100px;
       }
       .testimonials-section::before, .testimonials-section::after { display: none; }
       .testimonials-section .section-title { color: #2c3e50; }
@@ -182,13 +183,17 @@
       .faq-item.active .faq-answer { max-height: 300px; }
       
       /* --- Footer --- */
-      footer { border-top: 1px solid var(--glass-border); }
-      .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto 50px; position: relative; z-index: 1;}
-      .footer-section h3 { margin-bottom: 15px; }
-      .footer-section p, .footer-section li, .footer-section a { color: var(--text-light-translucent); text-decoration: none; }
+      footer { background-color: var(--dark-bg); color: var(--text-light); padding: 50px 40px; margin-left: -80px; }
+      .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 30px; }
+      .footer-section h3 { color: #fff; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+      .footer-section h3::after { content: ""; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--secondary-color); }
+      .footer-section p, .footer-section ul { color: #ccc; font-size: 0.95rem; }
       .footer-section ul { list-style: none; }
-      .social-links { margin-top: 15px; }
-      .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid var(--glass-border); position: relative; z-index: 1;}
+      .footer-section ul li { margin-bottom: 10px; }
+      .footer-section a { color: #ccc; }
+      .footer-section i { margin-right: 10px; }
+      .social-links a { color: #ccc; margin-right: 15px; font-size: 1.5rem; }
+      .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #4a6278; color: #ccc; }
 
       /* --- Contact Form Modal --- */
       .contact-form {
@@ -305,15 +310,43 @@
         </div>
       </section>
 
-      <footer class="content-section">
-        <div class="footer-content" id="about">
-          <div class="footer-section"><h3>Біз туралы</h3><p>Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.</p></div>
-          <div class="footer-section"><h3>Навигация</h3><ul><li><a href="#">Басты бет</a></li><li><a href="#faq">FAQ</a></li><li><a href="turlar.html">Турлар тізімі</a></li></ul></div>
-          <div class="footer-section contact" id="contact"><h3>Байланыс</h3><p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p><p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p></div>
-          <div class="footer-section social"><h3>Әлеуметтік желілер</h3><div class="social-links"><a href=""><i class="fa-brands fa-tiktok"></i></a><a href=""><i class="fa-brands fa-square-instagram"></i></a><a href=""><i class="fa-brands fa-youtube"></i></a></div></div>
+      <footer>
+      <div class="footer-content">
+        <div class="footer-section about" id="about">
+          <h3>Біз туралы</h3>
+          <p>
+            Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.
+            Жаңа жерлерді зерттеп, әртүрлі мәдениеттерді сезіну үшін бізбен
+            байланысқа щығыңыз.
+          </p>
         </div>
-        <div class="footer-bottom"><p>© 2024 Sayahat Site. All rights reserved.</p></div>
-      </footer>
+        <div class="footer-section links">
+          <h3>Сайтта навигация</h3>
+          <ul>
+            <li><a href="main.html">Басты бет</a></li>
+            <li><a href="#about">Біз туралы</a></li>
+            <li><a href="#contact">Байланыс</a></li>
+            <li><a href="turlar.html">Турлар тізімі</a></li>
+          </ul>
+        </div>
+        <div class="footer-section contact" id="contact">
+          <h3>Байланыс</h3>
+          <p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p>
+          <p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p>
+        </div>
+        <div class="footer-section social">
+          <h3>Әлеуметтік желілер</h3>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Sayahat Travel. All rights reserved.</p>
+      </div>
+    </footer>
     </div>
 
     <div id="contactForm" class="contact-form hidden">
