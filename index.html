@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- The lang attribute will be updated by JavaScript -->
+<html lang="kz"> 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The title will also be updated by JavaScript -->
     <title>Sayahat Inc. | Welcome</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -93,7 +95,7 @@
         background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&auto=format&fit=crop&q=60') center/cover;
       }
       header { position: absolute; top: 0; left: 0; right: 0; padding: 30px 40px; z-index: 100; }
-      header nav { display: flex; justify-content: flex-end; gap: 20px; }
+      header nav { display: flex; justify-content: flex-end; align-items: center; gap: 20px; }
       header nav a {
         color: var(--text-light); text-decoration: none;
         font-family: 'Raleway', sans-serif; font-weight: 600; padding: 12px 24px;
@@ -110,6 +112,34 @@
       }
       .hero h1 { font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
       .hero p { font-size: 1.4rem; max-width: 650px; color: var(--text-light-translucent); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
+
+      /* --- NEW CSS FOR LANGUAGE TOGGLE --- */
+      .lang-toggle {
+        display: flex;
+        background-color: var(--glass-bg);
+        backdrop-filter: blur(5px);
+        border-radius: 50px;
+        border: 1px solid var(--glass-border);
+        padding: 5px;
+        margin-left: 10px; /* Space from other nav items */
+      }
+      .lang-btn {
+        background: none;
+        border: none;
+        color: var(--text-light-translucent);
+        cursor: pointer;
+        padding: 7px 15px;
+        border-radius: 50px;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      .lang-btn.active {
+        background-color: var(--text-light);
+        color: var(--sidebar-bg);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
 
       /* --- Content Sections --- */
       .content-section {
@@ -183,16 +213,18 @@
       .faq-item.active .faq-answer { max-height: 300px; }
       
       /* --- Footer --- */
-      footer { background-color: var(--dark-bg); color: var(--text-light); padding: 50px 40px; margin-left: -80px; }
+      footer { background-color: #1a2530; color: var(--text-light); padding: 50px 40px; margin-left: -80px; }
       .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 30px; }
       .footer-section h3 { color: #fff; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
-      .footer-section h3::after { content: ""; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--secondary-color); }
+      .footer-section h3::after { content: ""; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--accent-blue); }
       .footer-section p, .footer-section ul { color: #ccc; font-size: 0.95rem; }
       .footer-section ul { list-style: none; }
       .footer-section ul li { margin-bottom: 10px; }
-      .footer-section a { color: #ccc; }
+      .footer-section a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+      .footer-section a:hover { color: var(--text-light); }
       .footer-section i { margin-right: 10px; }
-      .social-links a { color: #ccc; margin-right: 15px; font-size: 1.5rem; }
+      .social-links a { color: #ccc; margin-right: 15px; font-size: 1.5rem; transition: color 0.3s; }
+      .social-links a:hover { color: var(--text-light); }
       .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #4a6278; color: #ccc; }
 
       /* --- Contact Form Modal --- */
@@ -249,7 +281,7 @@
         header nav { justify-content: center; gap: 10px; flex-wrap: wrap; }
         header nav a { padding: 10px 18px; font-size: 14px; }
         .content-section { padding-left: 20px; padding-right: 20px; padding-top: 80px; }
-        footer { padding-top: 60px; }
+        footer { padding-top: 60px; margin-left: 0; }
         .section-title { font-size: 2.2rem; margin-bottom: 50px; }
         .browse-content { flex-direction: column !important; padding: 25px; }
         .faq-question { font-size: 1rem; padding: 15px 20px; }
@@ -262,8 +294,6 @@
     <div class="sidebar" id="sidebar">
       <div>
         <button id="menuBtn">☰</button>
-        <!-- The menu is positioned relative to the sidebar using JS and CSS -->
-        
       </div>
       <div class="media">
         <a href=""><i class="fa-brands fa-tiktok"></i></a><a href=""><i class="fa-brands fa-square-instagram"></i></a><a href=""><i class="fa-brands fa-youtube"></i></a>
@@ -275,94 +305,251 @@
       <div class="main-content">
         <header>
           <nav>
-            <a href="#">Басты бет</a><a href="#about">Біз туралы</a><a href="#contact" class="contactButton">Байланыс</a><a href="turlar.html" rel="nofollow" target="_blank">Турлар</a>
+            <a href="#" data-lang-key="navHome">Басты бет</a>
+            <a href="#about" data-lang-key="navAbout">Біз туралы</a>
+            <a href="#contact" class="contactButton" data-lang-key="navContact">Байланыс</a>
+            <a href="turlar.html" rel="nofollow" target="_blank" data-lang-key="navTours">Турлар</a>
+            <!-- LANG TOGGLE START -->
+            <div class="lang-toggle">
+              <button data-lang="kz" class="lang-btn active">KZ</button>
+              <button data-lang="en" class="lang-btn">EN</button>
+            </div>
+            <!-- LANG TOGGLE END -->
           </nav>
         </header>
         <div class="hero">
-          <h1>Sayahat Inc. сайтына қош келдіңіз!</h1>
-          <p>Бізбен Қазақстанның ең көрікті жерлеріне саяхатқа аттан</p>
+          <h1 data-lang-key="heroTitle">Sayahat Inc. сайтына қош келдіңіз!</h1>
+          <p data-lang-key="heroSubtitle">Бізбен Қазақстанның ең көрікті жерлеріне саяхатқа аттан</p>
         </div>
       </div>
 
       <section class="browse-section content-section">
-        <h2 class="section-title">Мәдениет пен табиғатты тамашалаңыз</h2>
-        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1549615558-a2e10948ad3b?w=1200&auto=format&fit=crop&q=60" alt="Explore Destinations"/></div><div class="browse-text"><h2>Қызықты саяхаттар</h2><p>Біздің таңдаулы саяхат бағыттарының тізімін зерттеу үшін төмендегі батырманы басыңыз.</p><button onclick="location.href='turlar.html'">Турларды шолу</button></div></div>
-        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1681330681342-9215daf0ab89?w=1200&auto=format&fit=crop&q=60" alt="Adventure Awaits"/></div><div class="browse-text"><h2>Естен кетпес демалыс</h2><p>Жаяу серуендеу, велосипед тебу немесе сүңгу болсын, бізде әрбір саяхатшы үшін ерекше нәрсе бар.</p><button onclick="location.href='turlar.html'">Турларды шолу</button></div></div>
-        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1530480667809-b655d4dc3aaa?w=1200&auto=format&fit=crop&q=60" alt="Kazakhstan's Welcome"/></div><div class="browse-text"><h2>Қонақжай Қазақстан</h2><p>Біздің елдің керемет таулары мен өзендерінде мәдениетіміз бен дәстүрлерімізбен танысыңыз.</p><button onclick="location.href='turlar.html'">Турларды шолу</button></div></div>
+        <h2 class="section-title" data-lang-key="browseTitle">Мәдениет пен табиғатты тамашалаңыз</h2>
+        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1549615558-a2e10948ad3b?w=1200&auto=format&fit=crop&q=60" alt="Explore Destinations"/></div><div class="browse-text"><h2 data-lang-key="browse1Title">Қызықты саяхаттар</h2><p data-lang-key="browse1Desc">Біздің таңдаулы саяхат бағыттарының тізімін зерттеу үшін төмендегі батырманы басыңыз.</p><button onclick="location.href='turlar.html'" data-lang-key="browseBtn">Турларды шолу</button></div></div>
+        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1681330681342-9215daf0ab89?w=1200&auto=format&fit=crop&q=60" alt="Adventure Awaits"/></div><div class="browse-text"><h2 data-lang-key="browse2Title">Естен кетпес демалыс</h2><p data-lang-key="browse2Desc">Жаяу серуендеу, велосипед тебу немесе сүңгу болсын, бізде әрбір саяхатшы үшін ерекше нәрсе бар.</p><button onclick="location.href='turlar.html'" data-lang-key="browseBtn">Турларды шолу</button></div></div>
+        <div class="browse-content"><div class="browse-image"><img src="https://images.unsplash.com/photo-1530480667809-b655d4dc3aaa?w=1200&auto=format&fit=crop&q=60" alt="Kazakhstan's Welcome"/></div><div class="browse-text"><h2 data-lang-key="browse3Title">Қонақжай Қазақстан</h2><p data-lang-key="browse3Desc">Біздің елдің керемет таулары мен өзендерінде мәдениетіміз бен дәстүрлерімізбен танысыңыз.</p><button onclick="location.href='turlar.html'" data-lang-key="browseBtn">Турларды шолу</button></div></div>
       </section>
 
       <section class="testimonials-section content-section" id="testimonials">
-        <h2 class="section-title">Біздің саяхатшылар не дейді</h2>
+        <h2 class="section-title" data-lang-key="testimonialsTitle">Біздің саяхатшылар не дейді</h2>
         <div class="testimonials-grid">
-          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="card-text">"Керемет ұйымдастырылған тур! Гид өте білімді болды, ал көріністер... сөзбен айтып жеткізгісіз. Sayahat Inc. командасына үлкен рахмет! Тағы да сіздермен саяхаттайтыныма сенімдімін."</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop" alt="Avatar of Aida"><div class="author-details"><span class="author-name">Аида Бекенова</span><span class="author-trip">Көлсай көлдеріне тур</span></div></div></div>
-          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="card-text">"Басынан аяғына дейін барлығы мінсіз болды. Байланыс өте жақсы, көлік жайлы, маршрут ойластырылған. Шарын шатқалындағы күн батуы естен кетпейді! Рахмет!"</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Avatar of Marat"><div class="author-details"><span class="author-name">Марат Сұлтанов</span><span class="author-trip">Шарын шатқалына саяхат</span></div></div></div>
-          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p class="card-text">"Отбасымызбен тамаша демалыс өткіздік. Балаларға да, ересектерге де қызықты болды. Табиғатпен етене араласып, көп нәрсе білдік. Гидке ерекше алғыс, балалармен тез тіл табысты."</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Avatar of Gulnar"><div class="author-details"><span class="author-name">Гүлнар Ахметова</span><span class="author-trip">Бурабайға отбасылық демалыс</span></div></div></div>
+          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="card-text" data-lang-key="testimonial1Text">"Керемет ұйымдастырылған тур! Гид өте білімді болды, ал көріністер... сөзбен айтып жеткізгісіз. Sayahat Inc. командасына үлкен рахмет! Тағы да сіздермен саяхаттайтыныма сенімдімін."</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop" alt="Avatar of Aida"><div class="author-details"><span class="author-name">Аида Бекенова</span><span class="author-trip" data-lang-key="testimonial1Trip">Көлсай көлдеріне тур</span></div></div></div>
+          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="card-text" data-lang-key="testimonial2Text">"Басынан аяғына дейін барлығы мінсіз болды. Байланыс өте жақсы, көлік жайлы, маршрут ойластырылған. Шарын шатқалындағы күн батуы естен кетпейді! Рахмет!"</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Avatar of Marat"><div class="author-details"><span class="author-name">Марат Сұлтанов</span><span class="author-trip" data-lang-key="testimonial2Trip">Шарын шатқалына саяхат</span></div></div></div>
+          <div class="testimonial-card"><div class="card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p class="card-text" data-lang-key="testimonial3Text">"Отбасымызбен тамаша демалыс өткіздік. Балаларға да, ересектерге де қызықты болды. Табиғатпен етене араласып, көп нәрсе білдік. Гидке ерекше алғыс, балалармен тез тіл табысты."</p><div class="card-author"><img class="author-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Avatar of Gulnar"><div class="author-details"><span class="author-name">Гүлнар Ахметова</span><span class="author-trip" data-lang-key="testimonial3Trip">Бурабайға отбасылық демалыс</span></div></div></div>
         </div>
       </section>
 
       <section class="faq-section content-section" id="faq">
-        <h2 class="section-title">Жиі қойылатын сұрақтар</h2>
+        <h2 class="section-title" data-lang-key="faqTitle">Жиі қойылатын сұрақтар</h2>
         <div class="faq-container">
-          <div class="faq-item"><button class="faq-question">Турға қалай тапсырыс беруге болады?</button><div class="faq-answer"><p>Турға тапсырыс беру үшін "Турлар" бетіне өтіп, өзіңізге ұнаған турды таңдап, "Жазылу" батырмасын басыңыз. Содан кейін байланыс ақпаратыңызды толтырсаңыз болғаны, біздің менеджер сізбен хабарласады.</p></div></div>
-          <div class="faq-item"><button class="faq-question">Тур бағасына не кіреді?</button><div class="faq-answer"><p>Әр турдың бағасына кіретін қызметтер оның сипаттамасында көрсетілген. Әдетте бұған көлік, гид қызметі және көрсетілген тамақтану кіреді. Жеке шығындар мен қосымша қызметтер бағаға кірмейді.</p></div></div>
-          <div class="faq-item"><button class="faq-question">Тапсырыстан бас тарту шарттары қандай?</button><div class="faq-answer"><p>Тапсырыстан бас тарту турдың басталуына 72 сағат қалғанға дейін тегін. Егер турдың басталуына 72 сағаттан аз уақыт қалса, алдын-ала төлемнің 50% ұсталады. 24 сағаттан аз уақыт қалғанда төлем қайтарылмайды.</p></div></div>
-          <div class="faq-item"><button class="faq-question">Өзіммен бірге не алуым керек?</button><div class="faq-answer"><p>Өзіңізбен бірге ауа-райына сәйкес ыңғайлы киім мен аяқ киім, күннен қорғайтын крем, көзілдірік, бас киім және жеке гигиеналық заттарды алуға кеңес береміз. Сондай-ақ, ішуге су және аздаған жеңіл тамақ алып жүрген артық болмайды.</p></div></div>
+          <div class="faq-item"><button class="faq-question" data-lang-key="faq1q">Турға қалай тапсырыс беруге болады?</button><div class="faq-answer"><p data-lang-key="faq1a">Турға тапсырыс беру үшін "Турлар" бетіне өтіп, өзіңізге ұнаған турды таңдап, "Жазылу" батырмасын басыңыз. Содан кейін байланыс ақпаратыңызды толтырсаңыз болғаны, біздің менеджер сізбен хабарласады.</p></div></div>
+          <div class="faq-item"><button class="faq-question" data-lang-key="faq2q">Тур бағасына не кіреді?</button><div class="faq-answer"><p data-lang-key="faq2a">Әр турдың бағасына кіретін қызметтер оның сипаттамасында көрсетілген. Әдетте бұған көлік, гид қызметі және көрсетілген тамақтану кіреді. Жеке шығындар мен қосымша қызметтер бағаға кірмейді.</p></div></div>
+          <div class="faq-item"><button class="faq-question" data-lang-key="faq3q">Тапсырыстан бас тарту шарттары қандай?</button><div class="faq-answer"><p data-lang-key="faq3a">Тапсырыстан бас тарту турдың басталуына 72 сағат қалғанға дейін тегін. Егер турдың басталуына 72 сағаттан аз уақыт қалса, алдын-ала төлемнің 50% ұсталады. 24 сағаттан аз уақыт қалғанда төлем қайтарылмайды.</p></div></div>
+          <div class="faq-item"><button class="faq-question" data-lang-key="faq4q">Өзіммен бірге не алуым керек?</button><div class="faq-answer"><p data-lang-key="faq4a">Өзіңізбен бірге ауа-райына сәйкес ыңғайлы киім мен аяқ киім, күннен қорғайтын крем, көзілдірік, бас киім және жеке гигиеналық заттарды алуға кеңес береміз. Сондай-ақ, ішуге су және аздаған жеңіл тамақ алып жүрген артық болмайды.</p></div></div>
         </div>
       </section>
 
       <footer>
-      <div class="footer-content">
-        <div class="footer-section about" id="about">
-          <h3>Біз туралы</h3>
-          <p>
-            Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.
-            Жаңа жерлерді зерттеп, әртүрлі мәдениеттерді сезіну үшін бізбен
-            байланысқа щығыңыз.
-          </p>
-        </div>
-        <div class="footer-section links">
-          <h3>Сайтта навигация</h3>
-          <ul>
-            <li><a href="main.html">Басты бет</a></li>
-            <li><a href="#about">Біз туралы</a></li>
-            <li><a href="#contact">Байланыс</a></li>
-            <li><a href="turlar.html">Турлар тізімі</a></li>
-          </ul>
-        </div>
-        <div class="footer-section contact" id="contact">
-          <h3>Байланыс</h3>
-          <p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p>
-          <p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p>
-        </div>
-        <div class="footer-section social">
-          <h3>Әлеуметтік желілер</h3>
-          <div class="social-links">
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        <div class="footer-content">
+          <div class="footer-section about" id="about">
+            <h3 data-lang-key="footerAboutTitle">Біз туралы</h3>
+            <p data-lang-key="footerAboutText">
+              Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.
+              Жаңа жерлерді зерттеп, әртүрлі мәдениеттерді сезіну үшін бізбен
+              байланысқа щығыңыз.
+            </p>
+          </div>
+          <div class="footer-section links">
+            <h3 data-lang-key="footerNavTitle">Сайтта навигация</h3>
+            <ul>
+              <li><a href="#" data-lang-key="navHome">Басты бет</a></li>
+              <li><a href="#about" data-lang-key="navAbout">Біз туралы</a></li>
+              <li><a href="#contact" data-lang-key="navContact">Байланыс</a></li>
+              <li><a href="turlar.html" data-lang-key="footerToursLink">Турлар тізімі</a></li>
+            </ul>
+          </div>
+          <div class="footer-section contact" id="contact">
+            <h3 data-lang-key="footerContactTitle">Байланыс</h3>
+            <p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p>
+            <p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p>
+          </div>
+          <div class="footer-section social">
+            <h3 data-lang-key="footerSocialTitle">Әлеуметтік желілер</h3>
+            <div class="social-links">
+              <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+              <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2024 Sayahat Travel. All rights reserved.</p>
-      </div>
-    </footer>
+        <div class="footer-bottom">
+          <p data-lang-key="footerCopyright">© 2024 Sayahat Travel. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
 
     <div id="contactForm" class="contact-form hidden">
-      <div class="contact-form-content"><span class="close-button" id="closeButton">×</span><h2>Сұрақтарың болса<br />байланыс ақпаратыңды қалдыр</h2><form><input type="text" id="name" name="name" placeholder="Атыңыз*" required/><input type="email" id="email" name="email" placeholder="Email*" required/><input type="text" id="phone" name="phone" placeholder="Телефон*"/><textarea id="message" name="message" rows="5" placeholder="Хабарлама*" required></textarea><button type="submit">Жіберу</button></form></div>
+      <div class="contact-form-content"><span class="close-button" id="closeButton">×</span><h2 data-lang-key="formTitle">Сұрақтарың болса<br />байланыс ақпаратыңды қалдыр</h2><form><input type="text" id="name" name="name" placeholder="Атыңыз*" required data-lang-key="formNamePlaceholder"/><input type="email" id="email" name="email" placeholder="Email*" required data-lang-key="formEmailPlaceholder"/><input type="text" id="phone" name="phone" placeholder="Телефон*" data-lang-key="formPhonePlaceholder"/><textarea id="message" name="message" rows="5" placeholder="Хабарлама*" required data-lang-key="formMessagePlaceholder"></textarea><button type="submit" data-lang-key="formSubmitBtn">Жіберу</button></form></div>
     </div>
     
     <script>
+      // LANGUAGE TOGGLE LOGIC START
+
+      const translations = {
+        kz: {
+          pageTitle: "Sayahat Inc. | Қош келдіңіз",
+          navHome: "Басты бет",
+          navAbout: "Біз туралы",
+          navContact: "Байланыс",
+          navTours: "Турлар",
+          heroTitle: "Sayahat Inc. сайтына қош келдіңіз!",
+          heroSubtitle: "Бізбен Қазақстанның ең көрікті жерлеріне саяхатқа аттан",
+          browseTitle: "Мәдениет пен табиғатты тамашалаңыз",
+          browse1Title: "Қызықты саяхаттар",
+          browse1Desc: "Біздің таңдаулы саяхат бағыттарының тізімін зерттеу үшін төмендегі батырманы басыңыз.",
+          browseBtn: "Турларды шолу",
+          browse2Title: "Естен кетпес демалыс",
+          browse2Desc: "Жаяу серуендеу, велосипед тебу немесе сүңгу болсын, бізде әрбір саяхатшы үшін ерекше нәрсе бар.",
+          browse3Title: "Қонақжай Қазақстан",
+          browse3Desc: "Біздің елдің керемет таулары мен өзендерінде мәдениетіміз бен дәстүрлерімізбен танысыңыз.",
+          testimonialsTitle: "Біздің саяхатшылар не дейді",
+          testimonial1Text: "\"Керемет ұйымдастырылған тур! Гид өте білімді болды, ал көріністер... сөзбен айтып жеткізгісіз. Sayahat Inc. командасына үлкен рахмет! Тағы да сіздермен саяхаттайтыныма сенімдімін.\"",
+          testimonial1Trip: "Көлсай көлдеріне тур",
+          testimonial2Text: "\"Басынан аяғына дейін барлығы мінсіз болды. Байланыс өте жақсы, көлік жайлы, маршрут ойластырылған. Шарын шатқалындағы күн батуы естен кетпейді! Рахмет!\"",
+          testimonial2Trip: "Шарын шатқалына саяхат",
+          testimonial3Text: "\"Отбасымызбен тамаша демалыс өткіздік. Балаларға да, ересектерге де қызықты болды. Табиғатпен етене араласып, көп нәрсе білдік. Гидке ерекше алғыс, балалармен тез тіл табысты.\"",
+          testimonial3Trip: "Бурабайға отбасылық демалыс",
+          faqTitle: "Жиі қойылатын сұрақтар",
+          faq1q: "Турға қалай тапсырыс беруге болады?",
+          faq1a: "Турға тапсырыс беру үшін \"Турлар\" бетіне өтіп, өзіңізге ұнаған турды таңдап, \"Жазылу\" батырмасын басыңыз. Содан кейін байланыс ақпаратыңызды толтырсаңыз болғаны, біздің менеджер сізбен хабарласады.",
+          faq2q: "Тур бағасына не кіреді?",
+          faq2a: "Әр турдың бағасына кіретін қызметтер оның сипаттамасында көрсетілген. Әдетте бұған көлік, гид қызметі және көрсетілген тамақтану кіреді. Жеке шығындар мен қосымша қызметтер бағаға кірмейді.",
+          faq3q: "Тапсырыстан бас тарту шарттары қандай?",
+          faq3a: "Тапсырыстан бас тарту турдың басталуына 72 сағат қалғанға дейін тегін. Егер турдың басталуына 72 сағаттан аз уақыт қалса, алдын-ала төлемнің 50% ұсталады. 24 сағаттан аз уақыт қалғанда төлем қайтарылмайды.",
+          faq4q: "Өзіммен бірге не алуым керек?",
+          faq4a: "Өзіңізбен бірге ауа-райына сәйкес ыңғайлы киім мен аяқ киім, күннен қорғайтын крем, көзілдірік, бас киім және жеке гигиеналық заттарды алуға кеңес береміз. Сондай-ақ, ішуге су және аздаған жеңіл тамақ алып жүрген артық болмайды.",
+          footerAboutTitle: "Біз туралы",
+          footerAboutText: "Біз сізге Қазақстанның ең жақсы туристік бағыттарын табуға көмектесеміз. Жаңа жерлерді зерттеп, мәдениетімізді сезіну үшін бізбен байланысқа шығыңыз.",
+          footerNavTitle: "Сайтта навигация",
+          footerToursLink: "Турлар тізімі",
+          footerContactTitle: "Байланыс",
+          footerSocialTitle: "Әлеуметтік желілер",
+          footerCopyright: "© 2024 Sayahat Travel. Барлық құқықтар қорғалған.",
+          formTitle: "Сұрақтарың болса<br/>байланыс ақпаратыңды қалдыр",
+          formNamePlaceholder: "Атыңыз*",
+          formEmailPlaceholder: "Email*",
+          formPhonePlaceholder: "Телефон*",
+          formMessagePlaceholder: "Хабарлама*",
+          formSubmitBtn: "Жіберу",
+        },
+        en: {
+          pageTitle: "Sayahat Inc. | Welcome",
+          navHome: "Home",
+          navAbout: "About Us",
+          navContact: "Contact",
+          navTours: "Tours",
+          heroTitle: "Welcome to Sayahat Inc.!",
+          heroSubtitle: "Journey with us to the most scenic places in Kazakhstan",
+          browseTitle: "Experience Culture and Nature",
+          browse1Title: "Exciting Journeys",
+          browse1Desc: "Click the button below to explore our curated list of travel destinations.",
+          browseBtn: "Browse Tours",
+          browse2Title: "Unforgettable Getaways",
+          browse2Desc: "Whether it's hiking, biking, or diving, we have something special for every adventurer.",
+          browse3Title: "Hospitable Kazakhstan",
+          browse3Desc: "Experience our culture and traditions amidst the stunning mountains and rivers of our country.",
+          testimonialsTitle: "What Our Travelers Say",
+          testimonial1Text: "\"An amazingly organized tour! The guide was very knowledgeable, and the views... indescribable. A huge thank you to the Sayahat Inc. team! I will definitely travel with you again.\"",
+          testimonial1Trip: "Tour to Kolsai Lakes",
+          testimonial2Text: "\"Everything was perfect from start to finish. Communication was excellent, the vehicle was comfortable, and the itinerary was well-thought-out. The sunset at Charyn Canyon is unforgettable! Thank you!\"",
+          testimonial2Trip: "Trip to Charyn Canyon",
+          testimonial3Text: "\"We had a wonderful family vacation. It was interesting for both kids and adults. We connected with nature and learned so much. Special thanks to the guide for easily finding a common language with the children.\"",
+          testimonial3Trip: "Family holiday in Burabay",
+          faqTitle: "Frequently Asked Questions",
+          faq1q: "How can I book a tour?",
+          faq1a: "To book a tour, go to the \"Tours\" page, select the tour you like, and click the \"Book Now\" button. Then, simply fill in your contact information, and our manager will contact you.",
+          faq2q: "What is included in the tour price?",
+          faq2a: "The services included in the price of each tour are listed in its description. Typically, this includes transportation, guide services, and specified meals. Personal expenses and additional services are not included.",
+          faq3q: "What are the cancellation terms?",
+          faq3a: "Cancellation is free up to 72 hours before the tour starts. If there are less than 72 hours until the tour, 50% of the prepayment will be withheld. If less than 24 hours, the payment is non-refundable.",
+          faq4q: "What should I bring with me?",
+          faq4a: "We recommend bringing comfortable clothing and shoes appropriate for the weather, sunscreen, sunglasses, a hat, and personal hygiene items. It's also a good idea to have water and some light snacks with you.",
+          footerAboutTitle: "About Us",
+          footerAboutText: "We help you discover the best travel destinations in Kazakhstan. Get in touch with us to explore new places and experience our rich culture.",
+          footerNavTitle: "Site Navigation",
+          footerToursLink: "List of Tours",
+          footerContactTitle: "Contact",
+          footerSocialTitle: "Social Media",
+          footerCopyright: "© 2024 Sayahat Travel. All rights reserved.",
+          formTitle: "Have questions?<br/>Leave your contact information",
+          formNamePlaceholder: "Your Name*",
+          formEmailPlaceholder: "Your Email*",
+          formPhonePlaceholder: "Your Phone*",
+          formMessagePlaceholder: "Your Message*",
+          formSubmitBtn: "Send",
+        }
+      };
+
+      const langButtons = document.querySelectorAll('.lang-btn');
+      
+      const setLanguage = (lang) => {
+        // Update all elements with a data-lang-key
+        document.querySelectorAll('[data-lang-key]').forEach(elem => {
+          const key = elem.dataset.langKey;
+          const translation = translations[lang][key];
+
+          if (translation) {
+            // Special handling for form input placeholders
+            if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
+              elem.placeholder = translation;
+            } else {
+              elem.innerHTML = translation;
+            }
+          }
+        });
+
+        // Update page title
+        document.title = translations[lang].pageTitle;
+
+        // Update html lang attribute for accessibility
+        document.documentElement.lang = lang;
+
+        // Update active button style
+        langButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        
+        // Save user's preference
+        localStorage.setItem('userLanguage', lang);
+      };
+
+      // Set language on button click
+      langButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          setLanguage(button.dataset.lang);
+        });
+      });
+
+      // On initial page load, check for saved language or default to Kazakh
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('userLanguage') || 'kz';
+        setLanguage(savedLang);
+      });
+
+      // LANGUAGE TOGGLE LOGIC END
+
+
       // Sidebar Menu Toggle
       const menuBtn = document.getElementById('menuBtn');
       const menu = document.getElementById('menu'); 
-      menuBtn.addEventListener('click', (e) => { 
-        e.stopPropagation(); 
-        if (menu) menu.classList.toggle('show');
-      });
+      if (menuBtn) { // Safety check
+        menuBtn.addEventListener('click', (e) => { 
+          e.stopPropagation(); 
+          if (menu) menu.classList.toggle('show');
+        });
+      }
       window.addEventListener('click', (e) => {
-        if (menu && !menuBtn.contains(e.target) && !menu.contains(e.target)) {
+        if (menu && menuBtn && !menuBtn.contains(e.target) && !menu.contains(e.target)) {
           menu.classList.remove('show');
         }
       });
@@ -379,7 +566,9 @@
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && contactForm.classList.contains('show')) hideModal(); });
       document.querySelector('#contactForm form').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert("Рахмет! Біз сізбен жақын арада байланысамыз.");
+        const currentLang = localStorage.getItem('userLanguage') || 'kz';
+        const alertMessage = currentLang === 'kz' ? "Рахмет! Біз сізбен жақын арада байланысамыз." : "Thank you! We will contact you shortly.";
+        alert(alertMessage);
         hideModal(); this.reset();
       });
 
@@ -394,7 +583,14 @@
       // FAQ Accordion
       document.querySelectorAll('.faq-item').forEach(item => {
         item.querySelector('.faq-question').addEventListener('click', () => {
-          item.classList.toggle('active');
+          const wasActive = item.classList.contains('active');
+          // Optional: close all others when one is opened
+          // document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          if (!wasActive) {
+            item.classList.add('active');
+          } else {
+             item.classList.remove('active');
+          }
         });
       });
     </script>
