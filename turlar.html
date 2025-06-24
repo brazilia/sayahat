@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- The lang attribute will be updated by JavaScript -->
+<html lang="kz">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Tours | Sayahat Travel</title>
+    <!-- The title will be updated by JavaScript -->
+    <title>Біздің Турлар | Sayahat Travel</title>
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700;800&display=swap"
@@ -68,20 +70,28 @@
         padding: 20px 0; z-index: 1000;
       }
       .sidebar #menuButton { background: none; border: none; color: var(--text-light); font-size: 24px; cursor: pointer; }
-      .sidebar .menu { display: flex; flex-direction: column; align-items: center; gap: 15px; position: absolute; top: 80px; background: var(--primary-color); width: 100%; padding: 10px 0; }
-      .sidebar .menu a { color: var(--text-light); font-weight: bold; }
+      /* Sidebar Menu (initially hidden) */
+      .sidebar .menu {
+        display: none; flex-direction: column; align-items: flex-start;
+        gap: 15px; position: absolute; top: 80px; left: 80px;
+        background-color: var(--primary-color); padding: 20px;
+        border-radius: 0 8px 8px 0; box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+      }
+      .sidebar .menu.show { display: flex; }
+      .sidebar .menu a { color: var(--text-light); text-decoration: none; font-weight: bold; }
       .sidebar .media { display: flex; flex-direction: column; gap: 20px; }
-      .sidebar .media a i { color: #ababab; font-size: 20px; }
+      .sidebar .media a i { color: #ababab; font-size: 20px; transition: color 0.3s, transform 0.3s; }
+      .sidebar .media a:hover i { color: var(--text-light); transform: scale(1.1); }
       .sidebar .copyright { text-align: center; color: #ababab; font-size: 14px; }
       .sidebar .copyright .fa-phoenix-squadron { color: var(--secondary-color); margin-top: 5px; }
-
+      
       /* --- Header --- */
       header {
         position: sticky; top: 0; width: 100%;
         background-color: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         z-index: 999; padding: 15px 20px;
       }
-      .head-menu { display: flex; justify-content: center; align-items: center; gap: 40px; }
+      .head-menu { display: flex; justify-content: center; align-items: center; gap: 30px; }
       .head-menu a {
         color: var(--primary-color); font-family: "Raleway", sans-serif;
         font-weight: 700; font-size: 16px; padding-bottom: 5px; position: relative;
@@ -92,20 +102,41 @@
       }
       .head-menu a:hover::after { width: 100%; }
 
+      /* --- NEW CSS FOR LANGUAGE TOGGLE --- */
+      .lang-toggle {
+        display: flex; background-color: #f0f0f0; border-radius: 50px; padding: 4px;
+      }
+      .lang-btn {
+        background: none; border: none; color: var(--primary-color);
+        cursor: pointer; padding: 6px 14px; border-radius: 50px;
+        font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 14px;
+        transition: all 0.3s ease;
+      }
+      .lang-btn.active { background-color: var(--primary-color); color: var(--text-light); }
+
       /* --- Main Content Container --- */
       main { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
       .tours-intro { text-align: center; margin-bottom: 50px; }
       .tours-intro h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
       .tours-intro p { font-size: 1.1rem; color: #777; max-width: 600px; margin: 0 auto; }
-      .tours-filter { margin-bottom: 50px; display: flex; justify-content: center; }
-      #tourSearch {
-        width: 100%; max-width: 500px; padding: 15px 20px;
-        border: 1px solid var(--border-color); border-radius: 50px;
-        font-size: 1rem; outline: none; transition: all 0.3s ease;
-      }
-      #tourSearch:focus { border-color: var(--secondary-color); box-shadow: 0 0 0 4px rgba(199, 150, 98, 0.2); }
 
-      /* --- Single Column Tour List --- */
+      /* --- NEW FILTER & SEARCH STYLES --- */
+      .filter-controls {
+        display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
+        background-color: #fff; padding: 25px; border-radius: var(--border-radius);
+        box-shadow: var(--shadow); margin-bottom: 50px;
+      }
+      .filter-group { flex: 1; min-width: 200px; }
+      .filter-group input, .filter-group select {
+        width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
+        border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;
+      }
+      .filter-group input:focus, .filter-group select:focus {
+        border-color: var(--secondary-color); box-shadow: 0 0 0 4px rgba(199, 150, 98, 0.2);
+      }
+      .filter-group select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; }
+
+      /* --- Tour List & Cards --- */
       .tours { display: flex; flex-direction: column; gap: 40px; }
       .tour-card {
         background: #fff; border-radius: var(--border-radius); box-shadow: var(--shadow);
@@ -141,13 +172,22 @@
       }
       .btn.details-btn:hover { background-color: var(--accent-color); color: #fff; }
 
+      .no-results-message {
+        text-align: center; padding: 40px; background: #fff;
+        border-radius: var(--border-radius); color: #777; font-size: 1.2rem;
+      }
+
       /* --- Modal --- */
       .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.6); animation: fadeIn 0.3s; }
-      .modal-content { background-color: #fefefe; margin: 15% auto; padding: 30px; width: 90%; max-width: 500px; border-radius: var(--border-radius); box-shadow: var(--shadow); position: relative; }
-      .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      .modal-content { background-color: #fefefe; margin: 10% auto; padding: 30px; width: 90%; max-width: 500px; border-radius: var(--border-radius); box-shadow: var(--shadow); position: relative; animation: slideIn 0.4s; }
+      @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
+      .close-btn:hover { color: #333; }
       #detailsForm label { display: block; margin-bottom: 8px; font-weight: bold; color: var(--primary-color); }
-      #detailsForm input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; }
-      #detailsForm button { width: 100%; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: var(--border-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+      #detailsForm input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; }
+      #detailsForm button { width: 100%; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background-color 0.3s; }
+      #detailsForm button:hover { background-color: #e67e22; }
 
       /* --- Footer --- */
       footer { background-color: var(--dark-bg); color: var(--text-light); padding: 50px 40px; margin-left: -80px; }
@@ -162,203 +202,185 @@
       .social-links a { color: #ccc; margin-right: 15px; font-size: 1.5rem; }
       .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #4a6278; color: #ccc; }
       
-
-      /* ==================================== */
       /* --- MOBILE RESPONSIVE ADJUSTMENTS --- */
-      /* ==================================== */
-
-      /* For tablets and smaller devices */
       @media (max-width: 900px) {
-        .tour-card {
-            flex-direction: column; /* Key change: stack card content vertically */
-        }
-        .tour-image-container {
-            width: 100%; /* Image container now takes full width */
-            height: 250px; /* Give a consistent height for a clean look */
-        }
+        .tour-card { flex-direction: column; }
+        .tour-image-container { width: 100%; height: 250px; }
       }
-
-      /* For mobile phones */
       @media (max-width: 768px) {
-        body {
-          padding-left: 0; /* Remove padding for sidebar */
-        }
-        .sidebar {
-          display: none; /* Hide the sidebar completely on mobile */
-        }
-        main {
-          padding: 20px 15px; /* Reduce main content padding */
-        }
-        footer {
-          margin-left: 0; /* Remove footer margin */
-          padding: 40px 20px;
-        }
-
-        .head-menu {
-          gap: 15px; /* Reduce gap between nav links */
-          flex-wrap: wrap; /* Allow nav links to wrap onto a new line if needed */
-          justify-content: center;
-        }
-        .head-menu a {
-          font-size: 14px; /* Slightly smaller font for nav */
-        }
-
-        .tours-intro h1 {
-          font-size: 2.2rem; /* Smaller main headline */
-        }
-        .tours-intro p {
-          font-size: 1rem;
-        }
-        .tours-filter {
-            margin-bottom: 40px;
-        }
-        #tourSearch {
-            padding: 12px 18px;
-        }
-
-        .tour-info {
-          padding: 20px; /* Reduce padding inside tour cards */
-        }
-        .tour-info h2 {
-          font-size: 1.4rem; /* Smaller tour titles */
-        }
+        body { padding-left: 0; }
+        .sidebar { display: none; }
+        main { padding: 20px 15px; }
+        footer { margin-left: 0; padding: 40px 20px; }
+        .head-menu { gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .head-menu a { font-size: 14px; }
+        .lang-toggle { margin-top: 10px; } /* Lang toggle on new line */
+        .tours-intro h1 { font-size: 2.2rem; }
+        .tours-intro p { font-size: 1rem; }
+        .filter-controls { flex-direction: column; padding: 20px; }
+        .tour-info { padding: 20px; }
+        .tour-info h2 { font-size: 1.4rem; }
       }
-
     </style>
   </head>
-  <body>
+<body>
     <!-- SIDEBAR -->
     <div class="sidebar">
-      <div>
-        <button id="menuButton">☰</button>
-        
-      </div>
-      <div class="media">
-        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-      </div>
-      <div class="copyright">
-        <p>2024</p>
-        <i class="fa-brands fa-phoenix-squadron"></i>
-      </div>
+        <div>
+            <button id="menuButton">☰</button>
+            <nav id="menu" class="menu">
+                <a href="index.html" data-lang-key="navHome">Басты бет</a>
+                <a href="index.html#about" data-lang-key="navAbout">Біз туралы</a>
+                <a href="index.html#contact" data-lang-key="navContact">Байланыс</a>
+            </nav>
+        </div>
+        <div class="media">
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+            <p>2024</p>
+            <i class="fa-brands fa-phoenix-squadron"></i>
+        </div>
     </div>
 
     <!-- HEADER -->
     <header>
       <nav class="head-menu">
-        <a href="index.html">Басты бет</a>
-        <a href="#about">Біз туралы</a>
-        <a href="#contact">Байланыс</a>
-        <a href="turlar.html" rel="nofollow" target="_blank">Турлар</a>
+        <a href="index.html" data-lang-key="navHome">Басты бет</a>
+        <a href="index.html#about" data-lang-key="navAbout">Біз туралы</a>
+        <a href="index.html#contact" data-lang-key="navContact">Байланыс</a>
+        <a href="turlar.html" data-lang-key="navTours">Турлар</a>
+        <div class="lang-toggle">
+            <button data-lang="kz" class="lang-btn active">KZ</button>
+            <button data-lang="en" class="lang-btn">EN</button>
+        </div>
       </nav>
     </header>
 
     <!-- MAIN CONTENT -->
     <main>
       <section class="tours-intro">
-        <h1>Қазақстан бойынша турлар</h1>
-        <p>Әдемі пейзаждардан тарихи ескерткіштерге дейін біз ұсынатын ең жақсы турларды табыңыз.</p>
+        <h1 data-lang-key="toursTitle">Қазақстан бойынша турлар</h1>
+        <p data-lang-key="toursSubtitle">Әдемі пейзаждардан тарихи ескерткіштерге дейін біз ұсынатын ең жақсы турларды табыңыз.</p>
       </section>
 
-      <section class="tours-filter">
-        <input type="text" id="tourSearch" placeholder="Тур іздеу..." />
+      <section class="filter-controls">
+        <div class="filter-group">
+            <input type="text" id="tourSearch" placeholder="Атауы бойынша іздеу..." data-lang-key="searchPlaceholder">
+        </div>
+        <div class="filter-group">
+            <select id="tourType">
+                <option value="all" data-lang-key="typeAll">Барлық түрлері</option>
+                <option value="small-group" data-lang-key="typeGroup">Шағын топ</option>
+                <option value="private" data-lang-key="typePrivate">Жеке тур</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <select id="tourDuration">
+                <option value="all" data-lang-key="durationAll">Кез келген ұзақтық</option>
+                <option value="half-day" data-lang-key="durationHalf">Жарты күн</option>
+                <option value="full-day" data-lang-key="durationFull">Толық күн</option>
+            </select>
+        </div>
+         <div class="filter-group">
+            <select id="tourSort">
+                <option value="default" data-lang-key="sortDefault">Сұрыптау</option>
+                <option value="price-asc" data-lang-key="sortPriceAsc">Бағасы: Арзаннан қымбатқа</option>
+                <option value="price-desc" data-lang-key="sortPriceDesc">Бағасы: Қымбаттан арзанға</option>
+                <option value="name-asc" data-lang-key="sortName">Атауы бойынша (A-Z)</option>
+            </select>
+        </div>
       </section>
 
       <section class="tours" id="toursList">
-
-        <div class="tour-card">
+        <!-- Tour cards will be dynamically managed by JavaScript -->
+        <div class="tour-card" data-type="small-group" data-duration="half-day" data-price="50" data-name="Есік көліне тур">
           <div class="tour-image-container">
-            <img src="https://images.unsplash.com/photo-1694411138725-101c79f0f9ee?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aXNzeWt8ZW58MHx8MHx8fDA%3D" alt="Issyk Lake" class="tour-image"/>
-            <div class="tour-date">
-              <span class="tour-day">MAY</span><span class="tour-date-number">26</span>
-            </div>
+            <img src="https://images.unsplash.com/photo-1694411138725-101c79f0f9ee?w=800&auto=format&fit=crop&q=60" alt="Issyk Lake" class="tour-image"/>
+            <div class="tour-date"><span class="tour-day">MAY</span><span class="tour-date-number">26</span></div>
           </div>
           <div class="tour-info">
-            <h2>Есік көліне тур</h2>
-            <p class="tour-description">Табиғат аясында демалып, Іле Алатауының інжу-маржаны саналатын Есік көлінің сұлулығына тамсаныңыз.</p>
-            <span class="tour-meta">5-15 туристтен тұратын шағын топ - адам басына $50</span>
+            <h2 data-lang-key="tour1Title">Есік көліне тур</h2>
+            <p class="tour-description" data-lang-key="tour1Desc">Табиғат аясында демалып, Іле Алатауының інжу-маржаны саналатын Есік көлінің сұлулығына тамсаныңыз.</p>
+            <span class="tour-meta" data-lang-key="tour1Meta">5-15 туристтен тұратын шағын топ - адам басына $50</span>
             <div class="tour-details-footer">
               <span class="tour-time"><i class="fa-regular fa-clock"></i> 9:00 - 13:30</span>
-              <a href="#" class="btn details-btn">Жазылу</a>
+              <a href="#" class="btn details-btn" data-lang-key="bookBtn">Жазылу</a>
             </div>
           </div>
         </div>
 
-        <div class="tour-card">
+        <div class="tour-card" data-type="private" data-duration="half-day" data-price="70" data-name="Шымбұлақ курортына тур">
           <div class="tour-image-container">
-            <img src="https://images.unsplash.com/photo-1704315348923-f2854e79d4b2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2h5bWJ1bGFrfGVufDB8fDB8fHww" alt="Shymbulak Ski Resort" class="tour-image"/>
-            <div class="tour-date">
-              <span class="tour-day">MAY</span><span class="tour-date-number">28</span>
-            </div>
+            <img src="https://images.unsplash.com/photo-1704315348923-f2854e79d4b2?w=800&auto=format&fit=crop&q=60" alt="Shymbulak Ski Resort" class="tour-image"/>
+            <div class="tour-date"><span class="tour-day">MAY</span><span class="tour-date-number">28</span></div>
           </div>
           <div class="tour-info">
-            <h2>Шымбұлақ курортына тур</h2>
-            <p class="tour-description">Әлемге әйгілі Шымбұлақ тау-шаңғы курортында белсенді демалыс өткізіп, таза тау ауасымен тыныстаңыз.</p>
-            <span class="tour-meta">Жеке тур - адам басына $70</span>
+            <h2 data-lang-key="tour2Title">Шымбұлақ курортына тур</h2>
+            <p class="tour-description" data-lang-key="tour2Desc">Әлемге әйгілі Шымбұлақ тау-шаңғы курортында белсенді демалыс өткізіп, таза тау ауасымен тыныстаңыз.</p>
+            <span class="tour-meta" data-lang-key="tour2Meta">Жеке тур - адам басына $70</span>
             <div class="tour-details-footer">
               <span class="tour-time"><i class="fa-regular fa-clock"></i> 9:30 - 15:30</span>
-              <a href="#" class="btn details-btn">Жазылу</a>
+              <a href="#" class="btn details-btn" data-lang-key="bookBtn">Жазылу</a>
             </div>
           </div>
         </div>
 
-        <div class="tour-card">
+        <div class="tour-card" data-type="private" data-duration="full-day" data-price="220" data-name="Ақсу шатқалына тур">
           <div class="tour-image-container">
-            <img src="https://images.unsplash.com/photo-1460302293840-dc1a23a7b226?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YWtzdSUyMGNhbnlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Aksu Canyon" class="tour-image"/>
-            <div class="tour-date">
-              <span class="tour-day">MAY</span><span class="tour-date-number">29</span>
-            </div>
+            <img src="https://images.unsplash.com/photo-1460302293840-dc1a23a7b226?w=800&auto=format&fit=crop&q=60" alt="Aksu Canyon" class="tour-image"/>
+            <div class="tour-date"><span class="tour-day">MAY</span><span class="tour-date-number">29</span></div>
           </div>
           <div class="tour-info">
-            <h2>Ақсу шатқалына тур</h2>
-            <p class="tour-description">Оңтүстік Қазақстанның ең терең және көрікті шатқалдарының бірі – Ақсу шатқалына ұмытылмас саяхат.</p>
-            <span class="tour-meta">Жеке тур - адам басына $220</span>
+            <h2 data-lang-key="tour3Title">Ақсу шатқалына тур</h2>
+            <p class="tour-description" data-lang-key="tour3Desc">Оңтүстік Қазақстанның ең терең және көрікті шатқалдарының бірі – Ақсу шатқалына ұмытылмас саяхат.</p>
+            <span class="tour-meta" data-lang-key="tour3Meta">Жеке тур - адам басына $220</span>
             <div class="tour-details-footer">
               <span class="tour-time"><i class="fa-regular fa-clock"></i> 8:00 - 18:00</span>
-              <a href="#" class="btn details-btn">Жазылу</a>
+              <a href="#" class="btn details-btn" data-lang-key="bookBtn">Жазылу</a>
             </div>
           </div>
         </div>
         
-        <div class="tour-card">
+        <div class="tour-card" data-type="small-group" data-duration="full-day" data-price="132" data-name="Түркістан қаласына тур">
             <div class="tour-image-container">
               <img src="suretter/tstan.jpg" alt="Turkistan City" class="tour-image" />
-              <div class="tour-date">
-                <span class="tour-day">MAY</span><span class="tour-date-number">30</span>
-              </div>
+              <div class="tour-date"><span class="tour-day">MAY</span><span class="tour-date-number">30</span></div>
             </div>
             <div class="tour-info">
-              <h2>Түркістан қаласына тур</h2>
-              <p class="tour-description">Ұлы Жібек жолының бойындағы рухани астанамыз, тарихы терең Түркістан қаласына саяхат жасаңыз.</p>
-              <span class="tour-meta">1-4 туристтен тұратын шағын топ - адам басына $132</span>
+              <h2 data-lang-key="tour4Title">Түркістан қаласына тур</h2>
+              <p class="tour-description" data-lang-key="tour4Desc">Ұлы Жібек жолының бойындағы рухани астанамыз, тарихы терең Түркістан қаласына саяхат жасаңыз.</p>
+              <span class="tour-meta" data-lang-key="tour4Meta">1-4 туристтен тұратын шағын топ - адам басына $132</span>
               <div class="tour-details-footer">
                 <span class="tour-time"><i class="fa-regular fa-clock"></i> 7:30 - 18:30</span>
-                <a href="#" class="btn details-btn">Жазылу</a>
+                <a href="#" class="btn details-btn" data-lang-key="bookBtn">Жазылу</a>
               </div>
             </div>
           </div>
-
       </section>
+
+      <div id="noResultsMessage" class="no-results-message hidden">
+        <h3 data-lang-key="noResultsTitle">Нәтижелер табылмады</h3>
+        <p data-lang-key="noResultsText">Басқа сүзгілерді қолданып көріңіз.</p>
+      </div>
     </main>
 
     <!-- CONTACT MODAL -->
     <div id="detailsModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">×</span>
-        <h2>Байланыс ақпаратыңызды қалдырыңыз</h2>
-        <p>Тур жайлы қосымша ақпаратпен сізбен бөлісеміз.</p>
+        <h2 data-lang-key="modalTitle">Байланыс ақпаратыңызды қалдырыңыз</h2>
+        <p data-lang-key="modalSubtitle">Тур жайлы қосымша ақпаратпен сізбен бөлісеміз.</p>
         <form id="detailsForm">
-          <label for="name">Атыңыз*</label>
+          <label for="name" data-lang-key="formName">Атыңыз*</label>
           <input type="text" id="name" name="name" required />
-
-          <label for="email">Email*</label>
+          <label for="email" data-lang-key="formEmail">Email*</label>
           <input type="email" id="email" name="email" required />
-
-          <label for="phone">Телефон*</label>
+          <label for="phone" data-lang-key="formPhone">Телефон*</label>
           <input type="tel" id="phone" name="phone" required />
-
-          <button type="submit">Жіберу</button>
+          <button type="submit" data-lang-key="formSubmit">Жіберу</button>
         </form>
       </div>
     </div>
@@ -367,29 +389,25 @@
     <footer>
       <div class="footer-content">
         <div class="footer-section about" id="about">
-          <h3>Біз туралы</h3>
-          <p>
-            Біз сізге әлемдегі ең жақсы туристік бағыттарды табуға көмектесеміз.
-            Жаңа жерлерді зерттеп, әртүрлі мәдениеттерді сезіну үшін бізбен
-            байланысқа щығыңыз.
-          </p>
+          <h3 data-lang-key="footerAboutTitle">Біз туралы</h3>
+          <p data-lang-key="footerAboutText">Біз сізге Қазақстанның ең жақсы туристік бағыттарын табуға көмектесеміз. Жаңа жерлерді зерттеп, мәдениетімізді сезіну үшін бізбен байланысқа шығыңыз.</p>
         </div>
         <div class="footer-section links">
-          <h3>Сайтта навигация</h3>
+          <h3 data-lang-key="footerNavTitle">Сайтта навигация</h3>
           <ul>
-            <li><a href="main.html">Басты бет</a></li>
-            <li><a href="#about">Біз туралы</a></li>
-            <li><a href="#contact">Байланыс</a></li>
-            <li><a href="turlar.html">Турлар тізімі</a></li>
+            <li><a href="index.html" data-lang-key="navHome">Басты бет</a></li>
+            <li><a href="index.html#about" data-lang-key="navAbout">Біз туралы</a></li>
+            <li><a href="index.html#contact" data-lang-key="navContact">Байланыс</a></li>
+            <li><a href="turlar.html" data-lang-key="footerToursLink">Турлар тізімі</a></li>
           </ul>
         </div>
         <div class="footer-section contact" id="contact">
-          <h3>Байланыс</h3>
+          <h3 data-lang-key="footerContactTitle">Байланыс</h3>
           <p><i class="fa-solid fa-envelope"></i> sayahat@travelsite.com</p>
           <p><i class="fa-solid fa-phone"></i> +7 (707) 915 1018</p>
         </div>
         <div class="footer-section social">
-          <h3>Әлеуметтік желілер</h3>
+          <h3 data-lang-key="footerSocialTitle">Әлеуметтік желілер</h3>
           <div class="social-links">
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
             <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
@@ -398,63 +416,172 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2024 Sayahat Travel. All rights reserved.</p>
+        <p data-lang-key="footerCopyright">© 2024 Sayahat Travel. Барлық құқықтар қорғалған.</p>
       </div>
     </footer>
 
-    <script>
-      // Sidebar Menu Toggle
-      document
-        .getElementById("menuButton")
-        .addEventListener("click", function () {
-          var menu = document.getElementById("menu");
-          menu.classList.toggle("hidden");
-        });
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-      // Tour Search Filter
-      document
-        .getElementById("tourSearch")
-        .addEventListener("input", function () {
-          const query = this.value.toLowerCase().trim();
-          const tourCards = document.querySelectorAll(".tour-card");
-
-          tourCards.forEach((card) => {
-            const tourName = card.querySelector("h2").textContent.toLowerCase();
-            const tourDesc = card.querySelector(".tour-description").textContent.toLowerCase();
-
-            // Check if either name or description includes the query
-            if (tourName.includes(query) || tourDesc.includes(query)) {
-              // On desktop it's 'flex', on mobile it might be 'block' after stacking
-              // so we reset style instead of setting a specific value
-              card.style.display = ''; 
-            } else {
-              card.style.display = 'none';
+    // --- LANGUAGE TOGGLE LOGIC ---
+    const translations = {
+        kz: {
+            pageTitle: "Біздің Турлар | Sayahat Travel",
+            navHome: "Басты бет", navAbout: "Біз туралы", navContact: "Байланыс", navTours: "Турлар",
+            toursTitle: "Қазақстан бойынша турлар",
+            toursSubtitle: "Әдемі пейзаждардан тарихи ескерткіштерге дейін біз ұсынатын ең жақсы турларды табыңыз.",
+            searchPlaceholder: "Атауы бойынша іздеу...",
+            typeAll: "Барлық түрлері", typeGroup: "Шағын топ", typePrivate: "Жеке тур",
+            durationAll: "Кез келген ұзақтық", durationHalf: "Жарты күн", durationFull: "Толық күн",
+            sortDefault: "Сұрыптау", sortPriceAsc: "Бағасы: Арзаннан қымбатқа", sortPriceDesc: "Бағасы: Қымбаттан арзанға", sortName: "Атауы бойынша (A-Z)",
+            tour1Title: "Есік көліне тур", tour1Desc: "Табиғат аясында демалып, Іле Алатауының інжу-маржаны саналатын Есік көлінің сұлулығына тамсаныңыз.", tour1Meta: "5-15 туристтен тұратын шағын топ - адам басына $50",
+            tour2Title: "Шымбұлақ курортына тур", tour2Desc: "Әлемге әйгілі Шымбұлақ тау-шаңғы курортында белсенді демалыс өткізіп, таза тау ауасымен тыныстаңыз.", tour2Meta: "Жеке тур - адам басына $70",
+            tour3Title: "Ақсу шатқалына тур", tour3Desc: "Оңтүстік Қазақстанның ең терең және көрікті шатқалдарының бірі – Ақсу шатқалына ұмытылмас саяхат.", tour3Meta: "Жеке тур - адам басына $220",
+            tour4Title: "Түркістан қаласына тур", tour4Desc: "Ұлы Жібек жолының бойындағы рухани астанамыз, тарихы терең Түркістан қаласына саяхат жасаңыз.", tour4Meta: "1-4 туристтен тұратын шағын топ - адам басына $132",
+            bookBtn: "Жазылу",
+            noResultsTitle: "Нәтижелер табылмады", noResultsText: "Басқа сүзгілерді қолданып көріңіз.",
+            modalTitle: "Байланыс ақпаратыңызды қалдырыңыз", modalSubtitle: "Тур жайлы қосымша ақпаратпен сізбен бөлісеміз.",
+            formName: "Атыңыз*", formEmail: "Email*", formPhone: "Телефон*", formSubmit: "Жіберу",
+            footerAboutTitle: "Біз туралы", footerAboutText: "Біз сізге Қазақстанның ең жақсы туристік бағыттарын табуға көмектесеміз. Жаңа жерлерді зерттеп, мәдениетімізді сезіну үшін бізбен байланысқа шығыңыз.",
+            footerNavTitle: "Сайтта навигация", footerToursLink: "Турлар тізімі", footerContactTitle: "Байланыс", footerSocialTitle: "Әлеуметтік желілер",
+            footerCopyright: "© 2024 Sayahat Travel. Барлық құқықтар қорғалған.",
+        },
+        en: {
+            pageTitle: "Our Tours | Sayahat Travel",
+            navHome: "Home", navAbout: "About Us", navContact: "Contact", navTours: "Tours",
+            toursTitle: "Tours across Kazakhstan",
+            toursSubtitle: "From beautiful landscapes to historical monuments, discover the best tours we have to offer.",
+            searchPlaceholder: "Search by name...",
+            typeAll: "All Types", typeGroup: "Small Group", typePrivate: "Private Tour",
+            durationAll: "Any Duration", durationHalf: "Half Day", durationFull: "Full Day",
+            sortDefault: "Sort by", sortPriceAsc: "Price: Low to High", sortPriceDesc: "Price: High to Low", sortName: "Name (A-Z)",
+            tour1Title: "Tour to Issyk Lake", tour1Desc: "Relax in nature and admire the beauty of Issyk Lake, the pearl of the Ile Alatau.", tour1Meta: "Small group of 5-15 tourists - $50 per person",
+            tour2Title: "Tour to Shymbulak Resort", tour2Desc: "Enjoy an active holiday and breathe the fresh mountain air at the world-famous Shymbulak ski resort.", tour2Meta: "Private tour - $70 per person",
+            tour3Title: "Tour to Aksu Canyon", tour3Desc: "An unforgettable journey to one of the deepest and most picturesque canyons in Southern Kazakhstan - Aksu Canyon.", tour3Meta: "Private tour - $220 per person",
+            tour4Title: "Tour to Turkistan City", tour4Desc: "Travel to Turkistan, our spiritual capital on the Great Silk Road, a city with a deep history.", tour4Meta: "Small group of 1-4 tourists - $132 per person",
+            bookBtn: "Book Now",
+            noResultsTitle: "No Results Found", noResultsText: "Please try adjusting your filters.",
+            modalTitle: "Leave Your Contact Information", modalSubtitle: "We will share more details about the tour with you.",
+            formName: "Your Name*", formEmail: "Your Email*", formPhone: "Your Phone*", formSubmit: "Send",
+            footerAboutTitle: "About Us", footerAboutText: "We help you discover the best travel destinations in Kazakhstan. Get in touch with us to explore new places and experience our rich culture.",
+            footerNavTitle: "Site Navigation", footerToursLink: "List of Tours", footerContactTitle: "Contact", footerSocialTitle: "Social Media",
+            footerCopyright: "© 2024 Sayahat Travel. All rights reserved.",
+        }
+    };
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const setLanguage = (lang) => {
+        document.querySelectorAll('[data-lang-key]').forEach(elem => {
+            const key = elem.dataset.langKey;
+            const translation = translations[lang][key];
+            if (translation) {
+                if (elem.tagName === 'INPUT') elem.placeholder = translation;
+                else elem.innerHTML = translation;
             }
-          });
+        });
+        document.title = translations[lang].pageTitle;
+        document.documentElement.lang = lang;
+        langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+        localStorage.setItem('userLanguage', lang);
+    };
+    langButtons.forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+    const savedLang = localStorage.getItem('userLanguage') || 'kz';
+    setLanguage(savedLang);
+
+    // --- SIDEBAR MENU TOGGLE ---
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    menuButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menu.classList.toggle("show");
+    });
+    window.addEventListener("click", (e) => {
+        if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove("show");
+        }
+    });
+
+    // --- FILTER & SORT LOGIC ---
+    const searchInput = document.getElementById('tourSearch');
+    const typeSelect = document.getElementById('tourType');
+    const durationSelect = document.getElementById('tourDuration');
+    const sortSelect = document.getElementById('tourSort');
+    const toursList = document.getElementById('toursList');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    const allTourCards = Array.from(toursList.querySelectorAll('.tour-card'));
+
+    function applyFiltersAndSort() {
+        const searchQuery = searchInput.value.toLowerCase().trim();
+        const selectedType = typeSelect.value;
+        const selectedDuration = durationSelect.value;
+        const selectedSort = sortSelect.value;
+        let visibleCount = 0;
+
+        // 1. Filter cards
+        const filteredCards = allTourCards.filter(card => {
+            const name = card.dataset.name.toLowerCase();
+            const type = card.dataset.type;
+            const duration = card.dataset.duration;
+
+            const matchesSearch = name.includes(searchQuery);
+            const matchesType = (selectedType === 'all' || type === selectedType);
+            const matchesDuration = (selectedDuration === 'all' || duration === selectedDuration);
+            
+            const isVisible = matchesSearch && matchesType && matchesDuration;
+            card.classList.toggle('hidden', !isVisible);
+            if (isVisible) visibleCount++;
+            return isVisible;
         });
 
-      // Modal Logic
-      const modal = document.getElementById("detailsModal");
-      const detailsButtons = document.querySelectorAll(".details-btn");
-      const closeBtn = document.getElementsByClassName("close-btn")[0];
-      const openModal = () => { modal.style.display = "block"; };
-      const closeModal = () => { modal.style.display = "none"; };
-      detailsButtons.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          event.preventDefault(); openModal();
+        // 2. Sort the filtered cards
+        filteredCards.sort((a, b) => {
+            switch (selectedSort) {
+                case 'price-asc': return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                case 'price-desc': return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                case 'name-asc': return a.dataset.name.localeCompare(b.dataset.name);
+                default: return 0; // 'default' order
+            }
         });
-      });
-      closeBtn.addEventListener("click", closeModal);
-      window.addEventListener("click", (event) => { if (event.target == modal) { closeModal(); } });
-      window.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal(); } });
-      document
-        .getElementById("detailsForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("Рахмет! Біз сізбен жақында байланысамыз.");
-          closeModal();
-          this.reset();
+
+        // 3. Re-append sorted cards to the list
+        // Detach all cards first to avoid re-ordering issues
+        allTourCards.forEach(card => toursList.removeChild(card));
+        // Append the sorted, filtered cards
+        filteredCards.forEach(card => toursList.appendChild(card));
+        // Append the hidden cards at the end
+        allTourCards.forEach(card => {
+            if(!filteredCards.includes(card)) toursList.appendChild(card);
         });
-    </script>
-  </body>
+
+        // 4. Show/hide 'no results' message
+        noResultsMessage.classList.toggle('hidden', visibleCount > 0);
+    }
+    [searchInput, typeSelect, durationSelect, sortSelect].forEach(el => {
+        el.addEventListener('input', applyFiltersAndSort);
+        el.addEventListener('change', applyFiltersAndSort);
+    });
+
+    // --- MODAL LOGIC ---
+    const modal = document.getElementById("detailsModal");
+    const detailsButtons = document.querySelectorAll(".details-btn");
+    const closeBtn = document.querySelector("#detailsModal .close-btn");
+    const openModal = () => modal.style.display = "block";
+    const closeModal = () => modal.style.display = "none";
+    
+    detailsButtons.forEach(btn => btn.addEventListener("click", (e) => { e.preventDefault(); openModal(); }));
+    closeBtn.addEventListener("click", closeModal);
+    window.addEventListener("click", (e) => { if (e.target == modal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+    
+    document.getElementById("detailsForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const currentLang = localStorage.getItem('userLanguage') || 'kz';
+        const alertMessage = currentLang === 'kz' ? "Рахмет! Біз сізбен жақында байланысамыз." : "Thank you! We will contact you shortly.";
+        alert(alertMessage);
+        closeModal();
+        this.reset();
+    });
+});
+</script>
+
+</body>
 </html>
